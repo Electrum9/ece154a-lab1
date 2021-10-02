@@ -75,14 +75,14 @@ endmodule
 module multiplex1(
 input f2,
 input [31:0] b,
-output reg [31:0] nb
+output [31:0] nb
 );
 
 	wire inv;
 
 	NOT n1 (b,inv);
 	
-	nb = inv f2 ? nb : b;
+	assign nb = f2 ? b: inv;
 /*
 always@(*)
 begin
@@ -99,7 +99,7 @@ module multiplex2( //need to change this mux
 input [2:0] f,
 input [31:0] a,
 input [31:0] newb,
-output reg [31:0] y
+output [31:0] y
 );
 wire [31:0] ando, oro, addo, slt;
 
@@ -108,7 +108,7 @@ wire [31:0] ando, oro, addo, slt;
 	adder add1 (a, newb, f[2], addo);
 	adder slt1 (a, newb, f[2], slt);
 
-	y = f[1] ? (f[0] ? slt : addo) : (f[0] ? oro : ando);
+	assign y = f[1] ? (f[0] ? slt : addo) : (f[0] ? oro : ando);
 /*
 	case(f10)
 		2'b00:
