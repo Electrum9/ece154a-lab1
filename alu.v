@@ -2,12 +2,23 @@ module adder(
 	input [31:0] x, 
 	input [31:0] y,
 	input msb,
+	output reg overflow,
 	output reg [31:0] sum
 );
-	
+
+
 	always@(*)
 		begin
 			sum = x + y + msb;
+			
+			if ((x[31] == 0 && y[31] == 0 && sum[1] == 1) 
+			|| (x[31] == 1 && y[31] == 1 && sum[1] == 0))
+				begin
+					overflow = 1;
+				end
+			else
+				overflow = 0;
+				
 		end
 
 endmodule
@@ -21,10 +32,12 @@ module AND(
 
 	always@(*)
 		begin
+			out = x & y;
+			/*
 			for (i=0; i < 32; i = i+1)
 				begin
 					out[i] = x[i] & y[i];
-				end
+				end*/
 		end
 endmodule
 
@@ -37,10 +50,13 @@ module OR(
 
 	always@(*)
 		begin
+
+			out = x | y;
+			/*
 			for (i=0; i < 32; i = i+1)
 				begin
 					out[i] = x[i] | y[i];
-				end
+				end*/
 		end
 endmodule
 
@@ -61,6 +77,13 @@ input f2,
 input [31:0] b,
 output reg [31:0] nb
 );
+
+	wire inv;
+
+	NOT n1 (b,inv);
+	
+	nb = inv f2 ? nb : b;
+/*
 always@(*)
 begin
 	if (f2==0)
@@ -68,24 +91,24 @@ begin
 	else
 		nb = ~b;
 end
-
+*/
 endmodule
 
 
 module multiplex2( //need to change this mux
-input [1:0] f,
+input [2:0] f,
 input [31:0] a,
 input [31:0] newb,
 output reg [31:0] y
 );
-wire ando, oro, addo, slt;
+wire [31:0] ando, oro, addo, slt;
 
 	AND and2 (a,newb,ando);
 	OR or2 (a,newb,oro);
-	adder add1 (a, newb, addo);
-	adder slt1 (a, newb, slt);
+	adder add1 (a, newb, f[2], addo);
+	adder slt1 (a, newb, f[2], slt);
 
-y = f[1] ? (f[0] ? slt : addo) : (f[0] ? oro : ando);
+	y = f[1] ? (f[0] ? slt : addo) : (f[0] ? oro : ando);
 /*
 	case(f10)
 		2'b00:
@@ -122,6 +145,7 @@ module alu(input [31:0] a,
  output reg zero);
 
 	reg [31:0] transb;
+	reg overflow = 0;
 	
 	multiplex1 mult1 (f[2], b, transb);
 	multiplex2 mult2 (f[1:0],a,transb,y);
