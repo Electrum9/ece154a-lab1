@@ -25,11 +25,11 @@ endmodule
 
 module slt(
 input [31:0] some,
-output [31:0] comparison,
+output reg [31:0] comparison
 );
 	always @ (*)
 		begin
-			assign comparison = some[31] ? 1 : 0;
+			comparison = some[31] ? 1 : 0;
 		end
 
 endmodule
