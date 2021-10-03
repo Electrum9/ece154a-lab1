@@ -29,7 +29,7 @@ integer i;
 initial begin
   $readmemb("alu-tests.tv", test_cases);
 
-  for (i = 0; i < 21; i + 1) begin
+  for (i = 0; i < 21; i = i + 1) begin
     #3
     f = test_cases[0][99:97];
     a = test_cases[0][96:65];
