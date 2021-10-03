@@ -33,9 +33,9 @@ initial begin
 
   for (i = 0; i < 21; i = i + 1) begin
     #3
-    f = test_cases[0][99:97];
-    a = test_cases[0][96:65];
-    b = test_cases[0][65:34];
+    f = test_cases[i][99:97];
+    a = test_cases[i][96:65];
+    b = test_cases[i][65:34];
     #1 $display("a=%d, b=%d, y=%d, zero=%d", a, b, y, zero);
   end
 end
