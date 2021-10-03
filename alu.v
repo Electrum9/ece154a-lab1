@@ -2,7 +2,7 @@ module adder(
 	input [31:0] x, 
 	input [31:0] y,
 	input msb,
-	output reg overflow,
+	//output reg overflow,
 	output reg [31:0] sum
 );
 
@@ -10,14 +10,14 @@ module adder(
 	always@(*)
 		begin
 			sum = x + y + msb;
-			
+			/*
 			if ((x[31] == 0 && y[31] == 0 && sum[1] == 1) 
 			|| (x[31] == 1 && y[31] == 1 && sum[1] == 0))
 				begin
 					overflow = 1;
 				end
 			else
-				overflow = 0;
+				overflow = 0;*/
 				
 		end
 
