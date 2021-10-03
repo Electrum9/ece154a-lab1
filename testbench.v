@@ -36,8 +36,8 @@ initial begin
     #3
     f = test_cases[i][99:97];
     a = test_cases[i][96:65];
-    b = test_cases[i][65:34];
-    #1 $display("a=%d, b=%d, y=%d, zero=%d", a, b, y, zero);
+    b = test_cases[i][64:33];
+    #1 $display("f=%h, a=%h, b=%h, y=%h, zero=%h", f, a, b, y, zero);
   end
 end
 

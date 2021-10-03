@@ -108,7 +108,7 @@ output [31:0] nb
 
 	NOT n1 (b,inv);
 	
-	assign nb = f2 ? b: inv;
+	assign nb = f2 ? inv: b;
 /*
 always@(*)
 begin
