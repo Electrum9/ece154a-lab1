@@ -89,7 +89,7 @@ input [31:0] b,
 output [31:0] nb
 );
 
-	wire inv;
+	wire [31:0] inv;
 
 	NOT n1 (b,inv);
 	
@@ -153,13 +153,14 @@ endmodule
 module alu(input [31:0] a, 
  input [31:0] b,
  input [2:0] f,
- output reg [31:0] y,
- output reg zero);
+ output [31:0] y,
+ output zero);
 
 	wire [31:0] transb;
 	reg overflow = 0;
 	
 	multiplex1 mult1 (f[2], b, transb);
-	multiplex2 mult2 (f[1:0],a,transb,y);
+	//multiplex2 mult2 (f[1:0],a,transb,y);
+	multiplex2 mult2 (f,a,transb,y);
 	
 endmodule

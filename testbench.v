@@ -20,14 +20,15 @@ reg [2:0] f; // Control input
 reg [31:0] a;
 reg [31:0] b;
 
-wire y, zero;
+wire [31:0] y;
+wire zero;
 
 alu dut(.f(f), .a(a), .b(b), .y(y), .zero(zero));
 
 integer i;
 
 initial begin
-  $readmemb("alu-tests.tv", test_cases);
+  $readmemb("/fs/student/vikrambhagavatula/ece154a/ece154a-lab1/alu-tests.tv", test_cases); // direct link to test vector file
 
   for (i = 0; i < 21; i = i + 1) begin
     #3
