@@ -28,7 +28,7 @@ alu dut(.f(f), .a(a), .b(b), .y(y), .zero(zero));
 integer i;
 
 initial begin
-  $readmemb("/fs/student/vikrambhagavatula/ece154a/ece154a-lab1/alu-tests.tv", test_cases); // direct link to test vector file
+  $readmemh("alu-tests.tv", test_cases);
 
   for (i = 0; i < 21; i = i + 1) begin
     #3
