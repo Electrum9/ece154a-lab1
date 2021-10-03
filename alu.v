@@ -23,12 +23,23 @@ module adder(
 
 endmodule
 
+module slt(
+input [31:0] some,
+output [31:0] comparison,
+);
+	always @ (*)
+		begin
+			assign comparison = some[31] ? 1 : 0;
+		end
+
+endmodule
+
 module AND(
 	input [31:0] x,
 	input [31:0] y,
 	output reg [31:0] out
 );
-	integer i;
+	//integer i;
 
 	always@(*)
 		begin
@@ -46,7 +57,7 @@ module OR(
 	input [31:0] y,
 	output reg [31:0] out
 );
-	integer i;
+	//integer i;
 
 	always@(*)
 		begin
@@ -101,14 +112,15 @@ input [31:0] a,
 input [31:0] newb,
 output [31:0] y
 );
-wire [31:0] ando, oro, addo, slt;
+wire [31:0] ando, oro, addo, addo2, slto;
 
 	AND and2 (a,newb,ando);
 	OR or2 (a,newb,oro);
 	adder add1 (a, newb, f[2], addo);
-	adder slt1 (a, newb, f[2], slt);
+	adder add2 (a, newb, f[2], addo2);
+	slt slt1 (addo2, slto);
 
-	assign y = f[1] ? (f[0] ? slt : addo) : (f[0] ? oro : ando);
+	assign y = f[1] ? (f[0] ? slto : addo) : (f[0] ? oro : ando);
 /*
 	case(f10)
 		2'b00:
@@ -144,7 +156,7 @@ module alu(input [31:0] a,
  output reg [31:0] y,
  output reg zero);
 
-	reg [31:0] transb;
+	wire [31:0] transb;
 	reg overflow = 0;
 	
 	multiplex1 mult1 (f[2], b, transb);
