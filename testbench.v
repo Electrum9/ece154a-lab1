@@ -24,16 +24,17 @@ wire y, zero;
 
 alu dut(.f(f), .a(a), .b(b), .y(y), .zero(zero));
 
+integer i;
+
 initial begin
-  $readmemb("alu-tests.tv", test_cases)
-  integer i;
+  $readmemb("alu-tests.tv", test_cases);
 
   for (i = 0; i < 21; i + 1) begin
     #3
-    f = test_cases[0][99:97]  
-    a = test_cases[0][96:65]  
-    b = test_cases[0][65:34]  
-    #1 $display("a=%d, b=%d, s=%d, cout=%d", a, b, y, zero);
+    f = test_cases[0][99:97];
+    a = test_cases[0][96:65];
+    b = test_cases[0][65:34];
+    #1 $display("a=%d, b=%d, y=%d, zero=%d", a, b, y, zero);
   end
 end
 
