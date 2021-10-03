@@ -23,6 +23,21 @@ module adder(
 
 endmodule
 
+module zerochecker(
+	input [31:0] y,
+	output reg z
+);
+	always @(*) 
+		begin
+			if (y == 0)
+				z = 1;
+			else
+				z = 0;
+			
+		end
+
+endmodule
+
 module slt(
 input [31:0] some,
 output reg [31:0] comparison
@@ -153,13 +168,14 @@ endmodule
 module alu(input [31:0] a, 
  input [31:0] b,
  input [2:0] f,
- output reg [31:0] y,
- output reg zero);
+ output [31:0] y,
+ output zero);
 
 	wire [31:0] transb;
 	reg overflow = 0;
 	
 	multiplex1 mult1 (f[2], b, transb);
 	multiplex2 mult2 (f[1:0],a,transb,y);
+	zerochecker zero1 (y, zero);
 	
 endmodule
