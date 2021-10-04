@@ -28,9 +28,9 @@ alu dut(.f(f), .a(a), .b(b), .y(y), .zero(zero));
 integer i;
 
 initial begin
-  //$readmemh("alu-tests.tv", test_cases);
+  $readmemh("../ece154a/new-alu-tests.tv", test_cases); //might need to change file path to find new-alu-tests.tv
   //$readmemh("/fs/student/vikrambhagavatula/ece154a/ece154a-lab1/alu-tests.tv", test_cases);
-  $readmemb("/fs/student/vikrambhagavatula/ece154a/ece154a-lab1/new-alu-tests.tv", test_cases); // contains bit strings, not hex
+  //$readmemb("/fs/student/vikrambhagavatula/ece154a/ece154a-lab1/new-alu-tests.tv", test_cases); // contains bit strings, not hex
 
   for (i = 0; i < 21; i = i + 1) begin
     #3
